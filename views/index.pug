@@ -1,0 +1,25 @@
+extends base.pug
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        td SN
+        td Name
+        td Trained 
+        td Actions
+        td Results
+    tbody 
+      - if(typeof (users) !== 'undefined')
+        each user, index in users 
+          tr
+            td #{index + 1}
+            td #{user.name}
+            td #{user.modelSavePath ? 'Yes': 'No'} 
+            td
+              a(href= `/user/${user._id}`)
+                button.btn.btn-info Train / Test 
+            td
+              a(href= `/userResult/${user._id}`)
+                button.btn.btn-success View Results
+

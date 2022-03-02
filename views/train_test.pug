@@ -1,0 +1,41 @@
+extends base
+
+block content 
+    .card 
+        .card-body
+            .card-title 
+                p.display-6 #{user.name} Training Signature
+            - if(typeof (imageList) !== 'undefined')
+                each image in imageList
+                    img.m-1(src=`/static/${user.uploadPath.split("./images")[1]}/${image}` alt=`${user.name}` width="200")
+            
+    div.mt-3
+        - if(typeof (user.modelSavePath) === 'undefined')
+            p.lead 
+                | You haven't trained your images yet. 
+                form(action="/run-script", method="post")
+                    input(type="text" name="name" value=user.name readonly style="width: 50%")
+                    input(type="text" name="trainPath" value=user.uploadPath readonly style="width: 50%")
+                    - if(user.training != true)
+                        button.btn.btn-primary(type="submit" id="loader") Start Training
+                    div.loader(id="spinner" style=`display: ${user.training === true ? "block" : "none" }` )
+                    div(id="classifier_train")
+                        -if(user.training === true) 
+                            p Your classifier is training. Please wait...
+        - else 
+            .card.test_card
+                .card-body
+                    p.display-6 Upload an image to test.
+                    hr
+                    .card-title 
+                        form(action='/test' method='POST' enctype='multipart/form-data')
+                            div
+                                label.form-label(for='formFileMultiple') Model Weights Path
+                                | 
+                                input(type="text" name="modelSavePath" value=user.modelSavePath readonly style="width: 50%")
+                            div.mb-2
+                                label.form-label(for='formFileMultiple') Upload an image
+                                input#formFileMultiple.form-control(type='file' name="image")
+                            button.btn.btn-primary(type='submit' id="loader") Submit
+                            div.loader(id="spinner")
+                            div(id="classifier_test")

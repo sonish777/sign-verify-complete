@@ -1,0 +1,33 @@
+extends base
+
+block content 
+    .card 
+        .card-body
+            .card-title 
+                p.display-6  #{user.name}  Signature Test Results
+                - if(!user.accuracy)
+                    p Training Accuracy not availabe as you have not trained your signature.
+                    a(href= `/user/${user._id}`)
+                        button.btn.btn-info.train_button Train
+                - else
+                    p=` Training Accuracy: ${user.accuracy * 100} %`
+                table.table.table-striped
+                    thead
+                    tr
+                        td SN
+                        td Test Image
+                        td Test Accuracy
+                        td Remarks
+                    tbody 
+
+                        each testResult, index in user.testResults
+                            tr
+                                td #{index + 1}
+                                td
+                                    img.m-1(src=`/static/${testResult.testPath.split("./images")[1]}` alt=`${user.name}` width="200")
+                                td=`${testResult.testAccuracy} %`
+                                td
+                                    if `${testResult.testAccuracy}` > 90 
+                                        button.btn.btn-success Accepted 
+                                    else 
+                                        button.btn.btn-danger Rejected 

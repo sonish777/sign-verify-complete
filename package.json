@@ -1,0 +1,27 @@
+{
+  "name": "python",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alert": "^5.0.10",
+    "alert-node": "^5.0.3",
+    "alertifyjs": "^1.13.1",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "mongoose": "^6.0.8",
+    "multer": "^1.4.4",
+    "pug": "^3.0.2",
+    "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
